@@ -1,0 +1,19 @@
+{
+    "name": "app-hr/payroll",
+    "description": "The HR Payroll module is a component within human resource management software that focuses on efficiently managing and processing employee compensation, benefits, and related financial tasks. This module streamlines payroll processes, ensuring accurate and timely payment to employees while complying with legal and tax regulations. It typically includes features such as salary calculation, tax deductions, benefits administration, time and attendance tracking, and generating pay slips. The HR Payroll module aims to reduce manual effort, minimize errors, and provide comprehensive financial reporting, thereby contributing to effective workforce management and organizational compliance.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AppHr\\Payroll\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hussain Mahamud",
+            "email": "mahamud@xpeedstudio.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
