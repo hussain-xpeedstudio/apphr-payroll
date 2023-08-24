@@ -111,36 +111,7 @@ class PayrollFieldController extends Controller
             //return $data->payrollField()->name;
             //return $data->payrollField->name;
             return PayrollGeneralSetting::with('payrollField:name')->get();
-    }
-    // public function getPayrollPivotData(){
-    //     //return $employee=Employee::find('64e5d8b1e8f3a0866a06c6f2')->tags;
-    //     //return $tag=Tag::find('64e5daf5a091085d9d0858c2')->employees;
-    //     //return Employee::with('tags')->find('64e5d8b1e8f3a0866a06c6f2');
-    //     $pipeline = [
-    //         {
-    //             'match': {
-    //                 '_id':'64e5d8b1e8f3a0866a06c6f2',
-    //             },
-    //         },
-    //         {
-    //             // Unwind the tags array
-    //             'unwind': '$tags',
-    //         },
-    //         {
-    //             // Group the data by the tag id and count the number of times each tag appears
-    //             'group': {
-    //                 '_id': '$tags._id',
-    //                 'count': {
-    //                     '$sum': 1,
-    //                 },
-    //             },
-    //         },
-    //     ];
-    //     $data=new Employee();
-    //     return $data->aggregate($pipeline);
-       
-    // }
-       
+    }    
     //Embedding tags model in Employee
     public function getPayrollPivotData() {
         $employee = Employee::find('64e5d8b1e8f3a0866a06c6f4');  
