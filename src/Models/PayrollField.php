@@ -13,7 +13,8 @@ class PayrollField extends Model
     // protected $primaryKey = 'id';
     protected $fillable=['name','deduction','is_system'];
     public function payrollGeneralSetting(){
-        return $this->hasOne(PayrollGeneralSetting::class);
+        //return $this->hasOne(PayrollGeneralSetting::class);
+        return $this->embedsOne(PayrollGeneralSetting::class);
     }
     public function payrollEmpSetting(){
         return $this->hasMany(PayrollEmpSetting::class);

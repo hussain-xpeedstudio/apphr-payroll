@@ -5,12 +5,11 @@ use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 //use Illuminate\Database\Eloquent\Model;
 
-class HourlyEmployee extends Model
+class Tag extends Model
 {
     use HasFactory;
-    protected $fillable=['emp_id','rate','overtime'];
-    public function employee(){
-        return $this->belongsTo(Employee::class);
-    }
-    
+    protected $fillable=['name'];
+    // public function employees(){
+    //     return $this->embedsMany(Employee::class)->withTimestamps();
+    // }
 }

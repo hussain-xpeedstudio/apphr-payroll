@@ -25,5 +25,9 @@ class Employee extends Model
     public function empOvertime(){
         return $this->hasMany(EmpOvertime::class);
     }
+    public function tags()
+    {
+        return $this->embedsMany(Tag::class);
+    }
      
 }

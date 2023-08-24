@@ -8,6 +8,9 @@ use AppHr\Payroll\Models\PayrollField;
 use AppHr\Payroll\Models\Counter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use AppHr\Payroll\Models\PayrollGeneralSetting;
+use AppHr\Payroll\Models\Employee;
+use AppHr\Payroll\Models\Tag;
 class PayrollFieldController extends Controller
 {
     public function index(){
@@ -86,4 +89,92 @@ class PayrollFieldController extends Controller
         }
         
     }
+    public function createPayrollGeneralSetting(Request $request){
+        $request_time=date('y-m-d h:i:s');
+        $request=$request->json()->all();
+
+        $data=new PayrollGeneralSetting();
+        $data->rules=$request['rules'];
+        $data->amount=$request['amount'];
+        $data->payroll_field_id=$request['payroll_field_id'];
+        $data->save();
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'message' => 'Payroll General Setting Created Successfully',
+        ]);
+    }
+    public function getPayrollGeneralSetting(){
+            
+            //return PayrollGeneralSetting('64e59d6a4844af492a00ca14')->payrollField()->name;
+            $data = PayrollGeneralSetting::find('64e5a03c4844af492a00ca15');
+            //return $data->payrollField()->name;
+            //return $data->payrollField->name;
+            return PayrollGeneralSetting::with('payrollField:name')->get();
+    }
+    // public function getPayrollPivotData(){
+    //     //return $employee=Employee::find('64e5d8b1e8f3a0866a06c6f2')->tags;
+    //     //return $tag=Tag::find('64e5daf5a091085d9d0858c2')->employees;
+    //     //return Employee::with('tags')->find('64e5d8b1e8f3a0866a06c6f2');
+    //     $pipeline = [
+    //         {
+    //             'match': {
+    //                 '_id':'64e5d8b1e8f3a0866a06c6f2',
+    //             },
+    //         },
+    //         {
+    //             // Unwind the tags array
+    //             'unwind': '$tags',
+    //         },
+    //         {
+    //             // Group the data by the tag id and count the number of times each tag appears
+    //             'group': {
+    //                 '_id': '$tags._id',
+    //                 'count': {
+    //                     '$sum': 1,
+    //                 },
+    //             },
+    //         },
+    //     ];
+    //     $data=new Employee();
+    //     return $data->aggregate($pipeline);
+       
+    // }
+       
+    //Embedding tags model in Employee
+    public function getPayrollPivotData() {
+        $employee = Employee::find('64e5d8b1e8f3a0866a06c6f4');  
+        $tagName='Testing Pivot Model';   
+        if (!$existingTag) {
+            $newTag = new Tag(['name' => 'Test']);
+            $employee->tags()->save($newTag);   
+            $employee->save(); 
+        }       
+        return $employee; 
+    }
+    public function getPayrollPivotData1() 
+    {
+
+        $employee = Employee::find('64e5d8b1e8f3a0866a06c6f4');
+        $tagName = 'Charity';
+        $existingTag = Tag::where('name', $tagName)->first();    
+        if (!$existingTag) {
+            $newTag = new Tag(['name' => $tagName]);
+            //$newTag->save();
+        } else {
+            $newTag = $existingTag;
+        }
+
+        $employee->tags()->save($newTag);   
+        $employee->save();
+        return $employee;
+    }
+
+    public function getPayrollPivotData2() {
+        
+    }
+
+    
+    
+    
 }
