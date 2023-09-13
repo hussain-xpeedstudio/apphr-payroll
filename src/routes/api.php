@@ -8,5 +8,8 @@ Route::group(['namespace'=>'AppHr\Payroll\Http\Controllers','prefix'=>'payroll']
 
     //Pivot Interaction
     Route::get('show/pivot-data', 'PayrollFieldController@getPayrollPivotData');
+    
+    //Get Validation Rules & Corresponding Validation Messages
+    Route::get('show/validation-rules', 'PayrollFieldController@getPayrollValidationRules');
 
 });

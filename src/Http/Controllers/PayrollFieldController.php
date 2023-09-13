@@ -17,6 +17,46 @@ class PayrollFieldController extends Controller
     {
         return ("Web Working Well");
     }
+    public function createPayrollField(PayrollFieldCreateRequest $request)
+    {
+        $request_time = date('y-m-d h:i:s');
+        $requestData = $request->validated(); 
+
+        try {
+            //store data
+            $data = new PayrollField();
+            $data->name = $requestData['name'];
+            $data->deduction = $requestData['deduction'];
+            $data->is_system = $requestData['1is_system'];
+            $data->save();
+            //success response
+            return ApiResponse::success($data, 'Payroll Field Created !', 200, $request_time);
+
+        } catch (\Exception $e) {
+            //exception response
+            return ApiResponse::serverException([], 'Something Went Wrong !', 501, $request_time);
+        }
+    }
+
+    // For common validation pattern json rules
+    public function getPayrollValidationRules(){
+        $request_time = date('y-m-d h:i:s');
+        try{
+            $request=new PayrollFieldCreateRequest();
+            $data = [
+                'validationRules' => $request->rules(),
+                'validationMessages' => $request->messages(),
+            ];
+            return ApiResponse::success($data, 'Success !', 200, $request_time);
+        }
+        catch(\Exception $e){
+            return ApiResponse::serverException([], 'Something Went Wrong !', 501, $request_time);
+        }
+    }
+
+
+
+    // Skip All Methods Below. All new methods architecture should be same as above
     public function getAllPayrollFields()
     {
         $request_time = date('y-m-d h:i:s');
@@ -43,26 +83,7 @@ class PayrollFieldController extends Controller
         }
 
     }
-    public function createPayrollField(PayrollFieldCreateRequest $request)
-    {
-        $request_time = date('y-m-d h:i:s');
-        $requestData = $request->validated(); // Use validated data directly
 
-        try {
-            //store data
-            $data = new PayrollField();
-            $data->name = $requestData['name'];
-            $data->deduction = $requestData['deduction'];
-            $data->is_system = $requestData['1is_system'];
-            $data->save();
-            //success response
-            return ApiResponse::success($data, 'Payroll Field Created !', 200, $request_time);
-
-        } catch (\Exception $e) {
-            //exception response
-            return ApiResponse::serverException([], 'Something Went Wrong !', 501, $request_time);
-        }
-    }
     public function createPayrollGeneralSetting(Request $request)
     {
         $request_time = date('y-m-d h:i:s');
